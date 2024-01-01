@@ -14,4 +14,4 @@ class TicketDescription {
   }
 }
 
-module.exports = {Ticket: Ticket, TicketDescription: TicketDescription};
+module.exports = { Ticket: Ticket, TicketDescription: TicketDescription };

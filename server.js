@@ -12,7 +12,7 @@ const ticketsDescription = [];
 app.use(koaBody({
   urlencoded: true,
   multipart: true,
-}))
+}));
 
 app.use((ctx, next) => {
   ctx.response.set('Access-Control-Allow-Origin', '*');
@@ -35,7 +35,7 @@ app.use((ctx, next) => {
   deleteTicket(ctx);
 });
 
-app.use(async (ctx, next) => {
+app.use(async (ctx) => {
   const { method } = ctx.request.query;
 
   switch (method) {
@@ -54,7 +54,6 @@ app.use(async (ctx, next) => {
     default:
       ctx.response.status = 404;
       ctx.response.body = 'method wasn\'t found';
-      return;
   }
 });
 
@@ -76,10 +75,12 @@ function createTicket(ctx) {
   ctx.response.body = ticket;
 }
 
-function editTicket(ctx){
-  const { id, name, status, description } = ctx.request.body;
+function editTicket(ctx) {
+  const {
+    id, name, status, description,
+  } = ctx.request.body;
 
-  let ticket = tickets.find(t => t.id === id);
+  const ticket = tickets.find(t => t.id === id);
   let ticketDescription = ticketsDescription.find(t => t.id === id);
 
   if (!ticket) {
@@ -97,7 +98,7 @@ function editTicket(ctx){
   ticket.status = status || ticket.status;
   ticketDescription.description = description || ticketDescription.description;
 
-  ctx.response.body = {...ticket, ...ticketDescription};
+  ctx.response.body = { ...ticket, ...ticketDescription };
 }
 
 function ticketById(ctx) {
@@ -111,7 +112,7 @@ function ticketById(ctx) {
     return;
   }
 
-  ctx.response.body = {...ticket, ...ticketDescription};
+  ctx.response.body = { ...ticket, ...ticketDescription };
 }
 
 function deleteTicket(ctx) {
@@ -126,7 +127,7 @@ function deleteTicket(ctx) {
 
   tickets.splice(index, 1);
 
-  ctx.response.body = {result: 'OK'};
+  ctx.response.body = { result: 'OK' };
 }
 
 function setErrorStatus(ctx) {
@@ -145,6 +146,6 @@ server.listen(port, (err) => {
     return;
   }
 
-  console.log('Server is listening to ' + port);
-  console.log('Server is listening to ' + port);
+  console.log(`Server is listening to ${port}`);
+  console.log(`Server is listening to ${port}`);
 });
