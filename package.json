@@ -1,0 +1,26 @@
+{
+  "name": "07-http-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "ISC",
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "prestart": "npm install",
+    "start": "forever server.js",
+    "watch": "forever -w server.js"
+  },
+  "dependencies": {
+    "forever": "^0.14.2",
+    "koa": "^2.15.0",
+    "koa-body": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "uuid": "^9.0.1"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "devDependencies": {
+    "lint": "^0.8.19"
+  }
+}
